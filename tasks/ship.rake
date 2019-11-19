@@ -301,7 +301,8 @@ namespace :pl do
       fail 'Value `Pkg::Config.gem_host` not defined, skipping nightly ship' unless Pkg::Config.gem_host
       fail 'Value `Pkg::Config.nonfinal_gem_path` not defined, skipping nightly ship' unless Pkg::Config.nonfinal_gem_path
       FileList['pkg/*.gem'].each do |gem_file|
-        Pkg::Gem.ship_to_internal_mirror(gem_file)
+        puts "ship to artifactory"
+        #Pkg::Gem.ship_to_internal_mirror(gem_file)
       end
       Pkg::Util::Execution.retry_on_fail(times: 3) do
         Pkg::Util::Ship.ship_gem('pkg', Pkg::Config.nonfinal_gem_path, platform_independent: true)
